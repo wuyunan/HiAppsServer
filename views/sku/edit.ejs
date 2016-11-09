@@ -1,12 +1,12 @@
 <form action="/sku/update/<%= sku.id %>" method="POST" class="form-signin">
 
-  <h2> 编辑商品 </h2>
-  <input value="<%= sku.name %>" name="name" type="text" class="form-control"/>
-  <input value="<%= sku.title %>" name="title" type="text" class="form-control"/>
-  <input value="<%= sku.desc %>" name="desc" type="text" class="form-control"/>
-  <input value="<%= sku.info %>" name="info" type="text" class="form-control"/>
+    <h2> 编辑商品 </h2>
+    <input value="<%= sku.name %>" name="name" type="text" class="form-control"/>
+    <input value="<%= sku.title %>" name="title" type="text" class="form-control"/>
+    <input value="<%= sku.desc %>" name="desc" type="text" class="form-control"/>
+    <input value="<%= sku.info %>" name="info" type="text" class="form-control"/>
 
 
-  <input type="submit" value="保存" class="btn btn-lg btn-primary btn-block"/>
-  <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+    <input type="submit" value="保存" class="btn btn-lg btn-primary btn-block"/>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
 </form>

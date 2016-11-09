@@ -1,9 +1,18 @@
 <div class="container">
-  <h1><%= sku.name %></h1>
-  <h3><%= sku.title %></h3>
-  <hr>
-  <h3>contact: <%= sku.email %></h3>
+    <h1> <%= sku.name %></h1>
+    <hr>
 
-  <a class="btn btn-medium btn-primary" href="/sku/edit/<%= sku.id %>">Edit</a>
+    <p>标题: <%= sku.title %></p>
+    <p>描述: <%= sku.desc %></p>
+    <p>信息: <%= sku.info %></p>
+    <hr>
+    <a class="btn btn-medium btn-primary" href="/sku">商品列表</a>
 
+    <a class="btn btn-medium btn-primary" href="/sku/edit/<%= sku.id %>">编辑</a>
+
+    <form action="/sku/destroy/<%= sku.id %>" method="POST">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" class="btn btn-sm btn-danger" value="删除"/>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+    </form>
 </div>

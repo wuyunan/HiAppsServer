@@ -1,19 +1,20 @@
 <form action="/sku/create" method="POST" id="sign-up-form" class="form-signin">
-  <h2 class="form-signin-heading"> 新建商品 </h2>
+    <h2 class="form-signin-heading"> 新建商品 </h2>
 
-  <div class="form-group">
-    <input type="text" class="form-control" placeholder="名字" name="name">
-  </div>
-
-  <input type="text" class="form-control" placeholder="标题" name="title">
-
-  <input type="text" class="form-control" placeholder="描述" name="desc">
-
-  <input type="text" class="form-control" placeholder="信息" name="info">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="名字" name="name">
+    </div>
 
 
-  <input type="submit" class="btn btn-lg btn-primary btn-block" value="添加商品"/>
+    <input type="text" class="form-control" placeholder="标题" name="title">
 
-  <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+    <input type="text" class="form-control" placeholder="描述" name="desc">
+
+    <input type="text" class="form-control" placeholder="信息" name="info">
+
+
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="添加商品"/>
+
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
 
 </form>

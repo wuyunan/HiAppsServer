@@ -7,54 +7,54 @@
 
 module.exports = {
 
-  schema: true,
+    schema: true,
 
-  attributes: {
-    name: {
-      type    : 'string',
-      required: true
+    attributes: {
+        name: {
+            type: 'string',
+            required: true
+        },
+
+        title: {
+            type: 'string'
+        },
+        admin: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+        email: {
+            type: 'email',
+            required: true,
+            unique: true
+        },
+
+        encryptedPassword: {
+            type: 'string'
+        }
     },
 
-    title: {
-      type: 'string'
-    },
-    admin: {
-      type      : 'boolean',
-      defaultsTo: false
-    },
-    email: {
-      type    : 'email',
-      required: true,
-      unique  : true
-    },
+    beforeCreate: function (values, next) {
 
-    encryptedPassword: {
-      type: 'string'
+        // This checks to make sure the password and password confirmation match before creating record
+        if (!values.password || values.password != values.confirmation) {
+            return next({err: ["Password doesn't match password confirmation."]});
+        }
+
+        require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+            if (err) return next(err);
+            values.encryptedPassword = encryptedPassword;
+            // values.online= true;
+            next();
+        });
     }
-  },
-
-  beforeCreate: function (values, next) {
-
-    // This checks to make sure the password and password confirmation match before creating record
-    if (!values.password || values.password != values.confirmation) {
-      return next({err: ["Password doesn't match password confirmation."]});
+    ,
+    toJSON: function () {
+        var obj = this.toObject();
+        delete obj.password;
+        delete obj.confirmation;
+        delete obj.encryptedPassword;
+        delete obj._csrf;
+        return obj;
     }
-
-    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
-      if (err) return next(err);
-      values.encryptedPassword = encryptedPassword;
-      // values.online= true;
-      next();
-    });
-  }
-  ,
-  toJSON      : function () {
-    var obj = this.toObject();
-    delete obj.password;
-    delete obj.confirmation;
-    delete obj.encryptedPassword;
-    delete obj._csrf;
-    return obj;
-  }
 };
 
