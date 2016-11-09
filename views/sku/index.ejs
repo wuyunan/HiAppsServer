@@ -1,0 +1,37 @@
+<div class="container">
+  <h3>商品列表</h3>
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>名字</th>
+      <th>标题</th>
+      <th>描述</th>
+      <th>信息</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% _.each(skus, function(sku){ %>
+    <tr data-id="<%= sku.id %>" data-model="user">
+      <td><%= sku.id %></td>
+      <td><%= sku.name %></td>
+      <td><%= sku.title %></td>
+      <td><%= sku.desc %></td>
+      <td><%= sku.info %></td>
+
+
+      <td><a href="/sku/show/<%= sku.id %>" class="btn btn-sm btn-primary">详情</a></td>
+      <td><a href="/sku/edit/<%= sku.id %>" class="btn btn-sm btn-warning">编辑</a></td>
+      <td>
+        <form action="/sku/destroy/<%= sku.id %>" method="POST">
+          <input type="hidden" name="_method" value="delete"/>
+          <input type="submit" class="btn btn-sm btn-danger" value="删除"/>
+          <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+        </form>
+      </td>
+    </tr>
+
+    <% }) %>
+  </table>
+</div>

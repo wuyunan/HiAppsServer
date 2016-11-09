@@ -38,6 +38,9 @@ module.exports.routes = {
 
   '/user/new': {
     view: 'user/new'
+  },
+  '/sku/new': {
+    view: 'sku/new'
   }
   /***************************************************************************
    *                                                                          *

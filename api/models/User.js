@@ -18,7 +18,10 @@ module.exports = {
     title: {
       type: 'string'
     },
-
+    admin: {
+      type      : 'boolean',
+      defaultsTo: false
+    },
     email: {
       type    : 'email',
       required: true,
@@ -30,22 +33,22 @@ module.exports = {
     }
   },
 
-  // beforeCreate: function (values, next) {
-  //
-  //   // This checks to make sure the password and password confirmation match before creating record
-  //   if (!values.password || values.password != values.confirmation) {
-  //     return next({err: ["Password doesn't match password confirmation."]});
-  //   }
-  //
-  //   require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
-  //     if (err) return next(err);
-  //     values.encryptedPassword = encryptedPassword;
-  //     // values.online= true;
-  //     next();
-  //   });
-  // }
+  beforeCreate: function (values, next) {
 
-  toJSON: function(){
+    // This checks to make sure the password and password confirmation match before creating record
+    if (!values.password || values.password != values.confirmation) {
+      return next({err: ["Password doesn't match password confirmation."]});
+    }
+
+    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+      if (err) return next(err);
+      values.encryptedPassword = encryptedPassword;
+      // values.online= true;
+      next();
+    });
+  }
+  ,
+  toJSON      : function () {
     var obj = this.toObject();
     delete obj.password;
     delete obj.confirmation;

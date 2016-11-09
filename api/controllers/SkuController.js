@@ -1,7 +1,7 @@
 /**
- * UserController
+ * SkuController
  *
- * @description :: Server-side logic for managing Users
+ * @description :: Server-side logic for managing skus
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -16,12 +16,12 @@ module.exports = {
   index: function (req, res, next) {
     console.log(new Date());
     console.log(req.session.authenticated);
-    //Get an array of all users in the User collection(e.g. table)
-    User.find(function foundUsers(err, users) {
+    //Get an array of all users in the Sku collection(e.g. table)
+    Sku.find(function foundSkus(err, skus) {
       if (err) return (err);
       //pass the array down to the /views/index.ejs page
       res.view({
-        users: users
+        skus: skus
       });
     });
   },
@@ -31,16 +31,16 @@ module.exports = {
     //req.session.flash = {};
   },
 
+
   create: function (req, res, next) {
 
-    var userObj = {
+    var skuObj = {
       name: req.param('name'),
       title: req.param('title'),
-      email: req.param('email'),
-      password: req.param('password'),
-      confirmation: req.param('confirmation')
+      desc: req.param('desc'),
+      info: req.param('info')
     }
-    User.create(userObj, function userCreated(err, user) {
+    Sku.create(skuObj, function skuCreated(err, sku) {
       //if(err) return next(err);
 
       if (err) {
@@ -49,25 +49,23 @@ module.exports = {
           err: err
         }
         //if error redirect back to sign-up page
-        return res.redirect('/user/new');
+        return res.redirect('/sku/new');
       }
-      //res.json(user);
+      //res.json(sku);
       //req.session.flash = {};
 
-      req.session.authenticated = true;
-      req.session.User          = user;
 
-      res.redirect('/user/show/' + user.id);
+      res.redirect('/sku/show/' + sku.id);
     });
   },
 
   //render the profile view (e.g. /views/show.ejs)
   show: function (req, res, next) {
-    User.findOne(req.param('id'), function foundUser(err, user) {
+    Sku.findOne(req.param('id'), function foundSku(err, sku) {
       if (err) return next(err);
-      if (!user) return next();
+      if (!sku) return next();
       res.view({
-        user: user
+        sku: sku
       });
     });
   },
@@ -75,13 +73,13 @@ module.exports = {
   //render the edit view (e.g. /views/edit.ejs)
   edit: function (req, res, next) {
 
-    //Find the user from the id passed in via params
-    User.findOne(req.param('id'), function foundUser(err, user) {
+    //Find the sku from the id passed in via params
+    Sku.findOne(req.param('id'), function foundSku(err, sku) {
       if (err) return next(err);
-      if (!user) return next('User doesn\'t exist.');
+      if (!sku) return next('Sku doesn\'t exist.');
 
       res.view({
-        user: user
+        sku: sku
       });
     });
   },
@@ -94,28 +92,21 @@ module.exports = {
    */
   update: function (req, res, next) {
 
-    if (values.admin != undefined && values.admin.constructor === Array) {
-      if (values.admin[1] === 'on') {
-        values.admin = true;
-      }
-    }
-
-    var userObj = {
+    var skuObj = {
       name : req.param('name'),
       title: req.param('title'),
-      email: req.param('email')
+      desc: req.param('desc'),
+      info: req.param('info')
+
     }
 
-    if (req.session.User.admin) {
-      userObj.admin = values.admin;
-    }
 
-    User.update(req.param('id'), userObj, function userUpdated(err) {
+    Sku.update(req.param('id'), skuObj, function skuUpdated(err) {
       if (err) {
-        return res.redirect('/user/edit/' + req.param('id'));
+        return res.redirect('/sku/edit/' + req.param('id'));
       }
 
-      res.redirect('/user/show/' + req.param('id'));
+      res.redirect('/sku/show/' + req.param('id'));
     });
   },
 
@@ -127,15 +118,15 @@ module.exports = {
    */
   destroy: function (req, res, next) {
     console.log("Hi, destroy");
-    User.findOne(req.param('id'), function foundUser(err, user) {
+    Sku.findOne(req.param('id'), function foundSku(err, sku) {
       if (err) return next(err);
-      if (!user) return next('User doesn\'t exist.');
+      if (!sku) return next('Sku doesn\'t exist.');
 
-      User.destroy(req.param('id'), function userDestroyed(err) {
+      Sku.destroy(req.param('id'), function skuDestroyed(err) {
         if (err) return next(err);
       });
 
-      res.redirect('/user');
+      res.redirect('/sku');
 
     });
   },
