@@ -7,8 +7,16 @@
 
 module.exports = {
 
+  schema: true,
+
   attributes: {
 
-  }
+    title: {
+      type: 'string'
+    },
+    icon : {
+      type: 'string'
+    }
+  },
 };
 

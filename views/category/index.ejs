@@ -1,0 +1,38 @@
+<div class="container">
+    <h3>分类列表</h3>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>图标</th>
+
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <% _.each(categories, function(category){ %>
+        <tr data-id="<%= category.id %>" data-model="category">
+            <td><%= category.id %></td>
+            <td><%= category.title %></td>
+            <td><%= category.icon %></td>
+
+
+            <td><a href="/category/show/<%= category.id %>" class="btn btn-sm btn-primary">详情</a></td>
+            <td><a href="/category/edit/<%= category.id %>" class="btn btn-sm btn-warning">编辑</a></td>
+            <td>
+                <form action="/category/destroy/<%= category.id %>" method="POST">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="submit" class="btn btn-sm btn-danger" value="删除"/>
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+                </form>
+            </td>
+        </tr>
+
+        <% }) %>
+    </table>
+
+    <hr>
+    <a class="btn btn-medium btn-success" href="/category/new">新建</a>
+
+</div>

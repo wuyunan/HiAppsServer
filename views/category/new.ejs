@@ -1,0 +1,13 @@
+<form action="/category/create" method="POST" id="sign-up-form" class="form-signin">
+    <h2 class="form-signin-heading"> 新建分类 </h2>
+
+    <input type="text" class="form-control" placeholder="标题" name="title">
+
+    <input type="text" class="form-control" placeholder="图标" name="icon">
+
+
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="添加分类"/>
+
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+
+</form>

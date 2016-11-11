@@ -1,0 +1,10 @@
+<form action="/category/update/<%= category.id %>" method="POST" class="form-signin">
+
+    <h2> 编辑分类 </h2>
+    <input value="<%= category.title %>" name="title" type="text" class="form-control"/>
+    <input value="<%= category.icon %>" name="icon" type="text" class="form-control"/>
+
+
+    <input type="submit" value="保存" class="btn btn-lg btn-primary btn-block"/>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+</form>

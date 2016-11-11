@@ -1,0 +1,16 @@
+<div class="container">
+    <h1> <%= category.title %></h1>
+    <hr>
+
+    <p>图标: <%= category.icon %></p>
+    <hr>
+    <a class="btn btn-medium btn-primary" href="/category">分类列表</a>
+
+    <a class="btn btn-medium btn-primary" href="/category/edit/<%= category.id %>">编辑</a>
+
+    <form action="/category/destroy/<%= category.id %>" method="POST">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" class="btn btn-sm btn-danger" value="删除"/>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+    </form>
+</div>
